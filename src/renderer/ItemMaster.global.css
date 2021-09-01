@@ -1,0 +1,18 @@
+.Container {
+  margin: 28px;
+}
+
+.Label {
+  text-align: 'right';
+}
+
+.Table,
+.FormButtons {
+  margin-top: 60px;
+}
+
+@media (max-width: 575px) {
+  .Label {
+    text-align: 'left';
+  }
+}

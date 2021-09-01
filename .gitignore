@@ -21,9 +21,13 @@ node_modules
 build/app/dist
 build/release
 .erb/dll
+electron-builder.yml
 
 .idea
 npm-debug.log.*
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts
+
+# Config
+src/main/*.json

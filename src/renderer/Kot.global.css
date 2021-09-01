@@ -1,0 +1,41 @@
+.Container {
+  margin: 28px;
+}
+
+.KotFormRow {
+  margin-top: 12px;
+}
+
+.FormRow {
+  margin-top: 28px;
+}
+
+.Table {
+  margin-top: 18px;
+}
+
+.btn-flat {
+  background-color: #3867d6;
+  color: white;
+}
+
+.btn-flat:hover {
+  color: white;
+  background-color: #182c61;
+}
+
+.TrashContainer:hover {
+  color: red;
+}
+
+.KotCancelledRow {
+  color: red;
+}
+
+.KotFormButton {
+  font-size: small;
+}
+
+.KotFormButtonsGroup {
+  margin-top: 12px;
+}

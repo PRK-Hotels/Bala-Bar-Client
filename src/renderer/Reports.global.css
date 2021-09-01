@@ -1,0 +1,26 @@
+.ReportFormGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: none;
+  color: inherit;
+  border: 2px solid blue;
+}
+
+.react-calendar button.react-calendar__tile--active {
+  border: 2px solid blue;
+}
+
+.react-calendar button.react-calendar__tile--active.curTransDate {
+  border: 2px solid blue;
+  color: darkgreen;
+}
+
+.curTransDate {
+  color: darkgreen;
+}

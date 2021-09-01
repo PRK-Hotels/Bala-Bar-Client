@@ -1,0 +1,7 @@
+.App-Content {
+  height: calc(100% - 120px);
+}
+
+.Transaction-Date {
+  font-weight: 500;
+}

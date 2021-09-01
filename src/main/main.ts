@@ -1,3 +1,4 @@
+/* eslint-disable promise/no-nesting */
 /* eslint global-require: off, no-console: off */
 
 /**
@@ -11,11 +12,23 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import fs from 'fs';
+
+import { app, BrowserWindow, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+
+import knex from 'knex';
+import PouchDB from 'pouchdb';
+import * as SocketIO from 'socket.io';
+import { io } from 'socket.io-client';
+
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { setAuthDb, setDBx } from './db';
+import { setSocket } from './socket';
+import InitMain from './ipc';
+import config from './config.json';
 
 export default class AppUpdater {
   constructor() {
@@ -27,11 +40,13 @@ export default class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
-});
+const dbDir = path.join(app.getPath('userData'), 'db');
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir);
+}
+
+const dbPath = path.join(dbDir, 'master.db');
+const authDbPath = path.join(dbDir, 'auth');
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -42,6 +57,8 @@ const isDevelopment =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
 if (isDevelopment) {
+  console.log('DBPath: ', dbPath);
+  console.log('AuthDBPath: ', authDbPath);
   require('electron-debug')();
 }
 
@@ -58,6 +75,42 @@ const installExtensions = async () => {
     .catch(console.log);
 };
 
+const { ioConfig } = config.Bala;
+if (ioConfig.serverMode) {
+  const sIO = new SocketIO.Server({
+    cors: {
+      origin: '*',
+    },
+  });
+
+  sIO.on('connection', (socket) => {
+    setSocket(socket);
+
+    socket.on('UI_EVENT', ({ channel }) => {
+      mainWindow?.webContents.send(channel);
+    });
+
+    socket.on('disconnect', () => {
+      setSocket(undefined);
+      console.log('Disconnected!');
+    });
+  });
+
+  sIO.listen(ioConfig.port);
+} else {
+  const socket = io(`ws://${ioConfig.host}:${ioConfig.port}`);
+  setSocket(socket);
+
+  socket.on('connect', () => {
+    console.log('Connected');
+  });
+
+  socket.on('UI_EVENT', ({ channel }) => {
+    // console.log(channel);
+    mainWindow?.webContents.send(channel);
+  });
+}
+
 const createWindow = async () => {
   if (
     process.env.NODE_ENV === 'development' ||
@@ -73,6 +126,25 @@ const createWindow = async () => {
   const getAssetPath = (...paths: string[]): string => {
     return path.join(RESOURCES_PATH, ...paths);
   };
+
+  // Init Databases
+  const { dbConfig } = config.Bala;
+  setAuthDb(new PouchDB(authDbPath));
+  setDBx(
+    knex({
+      client: 'mysql2',
+      connection: {
+        host: dbConfig.host,
+        user: dbConfig.user,
+        password: dbConfig.password,
+        database: dbConfig.database,
+      },
+    })
+  );
+
+  // Create necessary tables for ItemsDBx
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  InitMain();
 
   mainWindow = new BrowserWindow({
     show: false,

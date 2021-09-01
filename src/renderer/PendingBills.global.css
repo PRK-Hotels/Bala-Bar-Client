@@ -1,0 +1,21 @@
+.PB_Container {
+  display: flex;
+  flex: 1;
+  height: calc(100% - 120px);
+  overflow-y: hidden;
+}
+
+.PB_LeftPane {
+  display: flex;
+  flex: 5;
+  flex-direction: column;
+  border-right: 1px solid gray;
+  overflow-y: scroll;
+}
+
+.PB_RightPane {
+  display: flex;
+  flex: 5;
+  flex-direction: column;
+  overflow-y: scroll;
+}

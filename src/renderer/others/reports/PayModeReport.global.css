@@ -1,0 +1,17 @@
+.PayModePrintHeader {
+  visibility: hidden;
+}
+
+.PayModeReportContainer {
+  margin-top: 40px;
+}
+
+.PayModeReportContainer span {
+  font-weight: 800;
+}
+
+.PayModeTotalRow td {
+  font-weight: 800;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}

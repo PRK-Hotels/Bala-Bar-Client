@@ -1,0 +1,11 @@
+.ItemWisePrintHeader {
+  visibility: hidden;
+}
+
+.ItemWiseReportContainer {
+  margin-top: 40px;
+}
+
+.ItemWiseReportContainer span {
+  font-weight: 800;
+}

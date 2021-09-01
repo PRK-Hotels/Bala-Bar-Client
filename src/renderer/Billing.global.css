@@ -1,0 +1,46 @@
+.BillingContainer {
+  display: flex;
+  flex: 1;
+  height: calc(100% - 120px);
+  overflow-y: hidden;
+}
+
+.LeftPane {
+  display: flex;
+  flex: 7;
+  flex-direction: column;
+  border-right: 1px solid gray;
+  overflow-y: scroll;
+}
+
+.RightPane {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.RightPaneTop {
+  flex: 0.5;
+}
+
+.RightPaneBottom {
+  flex: 0.5;
+}
+
+.Table {
+  flex: 1 1 auto;
+}
+
+.BillingFooter {
+  justify-content: flex-end;
+}
+
+.BillPayHeading {
+  margin-top: 24px;
+  font-weight: 700;
+}
+
+.NoMargin {
+  margin: 0;
+}
