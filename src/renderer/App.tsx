@@ -40,7 +40,7 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p className="App-title">Hotel Bala Regency</p>
+        <p className="App-title">Hotel Bala Regency - Client</p>
       </header>
       <Content
         isAuthorized={authorized}
