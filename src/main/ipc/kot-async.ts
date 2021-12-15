@@ -100,7 +100,7 @@ const KotChannel = () => {
               if (inserts.length > 0) {
                 console.log(`${inserts[0]} new items saved.`);
                 await trx.commit();
-                IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
+                // IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
                 return {
                   item: item[0],
                   item_id: inserts[0],
@@ -155,7 +155,7 @@ const KotChannel = () => {
               if (inserts.length > 0) {
                 console.log(`${inserts[0]} new items saved.`);
                 await trx.commit();
-                IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
+                // IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
                 return {
                   item: item[0],
                   item_id: inserts[0],
@@ -206,7 +206,7 @@ const KotChannel = () => {
               updated_at: DBx.fn.now(),
             });
 
-          IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
+          // IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
           return innerRes;
         }
 
@@ -257,7 +257,7 @@ const KotChannel = () => {
                   'Print Successful:Transaction: ',
                   trx.isCompleted()
                 );
-                IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
+                // IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
                 return {};
               }
               console.log('Printer Not Connected');
@@ -285,7 +285,7 @@ const KotChannel = () => {
                   'Print Successful: Transaction: ',
                   trx.isCompleted()
                 );
-                IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
+                // IOx?.emit('UI_EVENT', { channel: 'kot_updated' });
                 return {};
               }
               console.log('Printer Not Connected');
