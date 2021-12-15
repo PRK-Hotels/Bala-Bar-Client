@@ -108,7 +108,7 @@ const BillChannel = () => {
             grand_total: arg.billAmountInfo.grandTotal,
           });
 
-          IOx?.emit('UI_EVENT', { channel: 'kot_pending_bills_updated' });
+          // IOx?.emit('UI_EVENT', { channel: 'kot_pending_bills_updated' });
 
           if (arg.printBill) {
             try {
@@ -220,7 +220,7 @@ const BillChannel = () => {
           });
 
           trx.commit();
-          IOx?.emit('UI_EVENT', { channel: 'kot_pending_bills_updated' });
+          // IOx?.emit('UI_EVENT', { channel: 'kot_pending_bills_updated' });
           return undefined;
         } catch (err) {
           trx.rollback();
