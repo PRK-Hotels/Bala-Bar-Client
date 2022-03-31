@@ -82,7 +82,7 @@ const BillChannel = () => {
           }
 
           // TODO: To be automated in future based on the running year.
-          const billSuffix = '21/22';
+          const billSuffix = '22/23';
           const billId = `${billPrefix}${arg.billNo}-${billSuffix}`;
 
           await trx('billing_txn').insert({
